@@ -26,7 +26,7 @@ use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\player\Player;
 use pocketmine\world\sound\BowShootSound;
 
-class LightweightSkeleton extends Monster {
+class LightweightSkeleton extends LightweightLiving {
 
 	private int $bowChargeTime = 0;
 	private bool $bowCharged = false;
@@ -77,7 +77,7 @@ class LightweightSkeleton extends Monster {
 		$this->actionAttackTime = 30;
 
 		$this->bowCharged = false;
-		$this->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::CHARGE_ATTACK, false);
+		$this->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::TEMPTED, false);
 
 		$baseForce = 1.2;
 		$entity = new ArrowEntity(Location::fromObject(
@@ -119,6 +119,6 @@ class LightweightSkeleton extends Monster {
 
 	public function chargeBow(): void{
 		$this->bowChargeTime = 40;
-		$this->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::CHARGE_ATTACK, true);
+		$this->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::TEMPTED, true);
 	}
 }

@@ -2,7 +2,6 @@
 
 namespace famima65536\lwe\entity;
 
-use famima65536\lwe\entity\routing\AstarRouting;
 use pocketmine\block\Transparent;
 use pocketmine\entity\Entity;
 use pocketmine\entity\Living;
@@ -14,7 +13,7 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\player\Player;
 use pocketmine\world\format\Chunk;
 
-abstract class Monster extends Living {
+abstract class LightweightLiving extends Living {
 
 	# code for search
 	protected int $targetSearchDistance = 30;
@@ -39,10 +38,9 @@ abstract class Monster extends Living {
 	}
 
 
-	public function searchTarget(int $tickDiff): void{
-		$this->searchTime -= $tickDiff;
+	public function searchTarget(): void{
 		$currentTarget = $this->getTargetEntity();
-		if(($currentTarget === null or $currentTarget->closed) and $this->searchTime < 0){
+		if(($currentTarget === null or $currentTarget->closed) and $this->searchTime === 0){
 			$this->searchTime = $this->searchCooldown;
 			$this->realSearchTarget();
 		}
@@ -54,23 +52,20 @@ abstract class Monster extends Living {
 	}
 
 	public function onUpdate(int $currentTick): bool{
-		$this->searchTarget($currentTick - $this->lastUpdate);
-
-
+		$update = parent::onUpdate($currentTick);
+		$this->searchTarget();
 		$targetEntity = $this->target;
 		if($targetEntity === null or $targetEntity->closed){
 			$this->setTarget(null);
-			return parent::onUpdate($currentTick);
+			return $update;
 		}
 		$this->lookAt($this->target->getLocation()->add(0, 0.7, 0));
 
 		if($this->attackTime > 0){
-			return parent::onUpdate($currentTick);
+			return $update;
 		}
 		$vectorToTarget = $targetEntity->getPosition()->subtractVector($this->location);
-		if($this->actionAttackTime === 0 and $vectorToTarget->lengthSquared() < $this->attackDistance**2){
-			$this->actionAttack();
-		}
+
 		$vectorToTarget->y = 0;
 		$normalizedVector = $vectorToTarget->normalize();
 		if(!$this->getWorld()->getBlock($this->location->addVector($normalizedVector)) instanceof Transparent){
@@ -91,7 +86,7 @@ abstract class Monster extends Living {
 			$this->addMotion($boundingMotion->x, 0, $boundingMotion->z);
 		}
 
-		return parent::onUpdate($currentTick);
+		return $update;
 	}
 
 	public function entityBaseTick(int $tickDiff = 1): bool{
@@ -101,6 +96,14 @@ abstract class Monster extends Living {
 				$this->actionAttackTime = 0;
 			}
 		}
+
+		if($this->searchTime > 0){
+			$this->searchTime -= $tickDiff;
+			if($this->searchTime < 0){
+				$this->searchTime = 0;
+			}
+		}
+
 		return parent::entityBaseTick($tickDiff);
 	}
 

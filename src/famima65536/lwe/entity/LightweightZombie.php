@@ -11,7 +11,7 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\item\VanillaItems;
 use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
 
-class LightweightZombie extends Monster {
+class LightweightZombie extends LightweightLiving {
 
 
 	public static function getNetworkTypeId() : string{ return EntityIds::ZOMBIE; }
