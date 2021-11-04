@@ -2,7 +2,7 @@
 	"name": "famima65536/lightweight-entities",
 	"description": "description",
 	"minimum-stability": "dev",
-	"license": "MIT",
+	"license": "LGPL-3.0-or-later",
 	"authors": [
 		{
 			"name": "famima65536",
