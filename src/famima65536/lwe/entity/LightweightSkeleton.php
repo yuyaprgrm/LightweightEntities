@@ -5,6 +5,7 @@ namespace famima65536\lwe\entity;
 use pocketmine\entity\animation\Animation;
 use pocketmine\entity\animation\ArmSwingAnimation;
 use pocketmine\entity\animation\ArrowShakeAnimation;
+use pocketmine\entity\Entity;
 use pocketmine\entity\EntitySizeInfo;
 use pocketmine\entity\Location;
 use pocketmine\entity\projectile\Arrow as ArrowEntity;
@@ -26,7 +27,7 @@ use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\player\Player;
 use pocketmine\world\sound\BowShootSound;
 
-class LightweightSkeleton extends LightweightLiving {
+class LightweightSkeleton extends LightweightMonster {
 
 	private int $bowChargeTime = 0;
 	private bool $bowCharged = false;
@@ -55,31 +56,17 @@ class LightweightSkeleton extends LightweightLiving {
 	}
 
 	public function entityBaseTick(int $tickDiff = 1): bool{
-		if($this->bowChargeTime > 0){
-			$this->bowChargeTime -= $tickDiff;
-			if($this->bowChargeTime <= 0){
-				$this->bowChargeTime = 0;
-				$this->bowCharged = true;
-			}
-		}
+		$this->attackTicker($tickDiff);
 		return parent::entityBaseTick($tickDiff);
 	}
 
-	public function actionAttack(): void{
-		if(!$this->bowCharged && $this->bowChargeTime > 0){
-			$this->chargeBow();
-			return;
-		}
-
-		if($this->actionAttackTime > 0){
-			return;
-		}
-		$this->actionAttackTime = 30;
+	public function actionAttack(Entity $target): void{
+		$this->actionAttackTime = 60;
 
 		$this->bowCharged = false;
 		$this->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::TEMPTED, false);
 
-		$baseForce = 1.2;
+		$baseForce = 0.7;
 		$entity = new ArrowEntity(Location::fromObject(
 			$this->getEyePos(),
 			$this->getWorld(),
@@ -117,8 +104,4 @@ class LightweightSkeleton extends LightweightLiving {
 		}
 	}
 
-	public function chargeBow(): void{
-		$this->bowChargeTime = 40;
-		$this->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::TEMPTED, true);
-	}
 }
