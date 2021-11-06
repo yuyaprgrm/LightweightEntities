@@ -1,6 +1,6 @@
 <?php
 
-namespace famima65536\lwe\entity\trait;
+namespace famima65536\lwe\entity\utils;
 
 use pocketmine\block\Transparent;
 use pocketmine\entity\Entity;

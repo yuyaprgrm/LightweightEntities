@@ -1,6 +1,6 @@
 <?php
 
-namespace famima65536\lwe\entity\trait;
+namespace famima65536\lwe\entity\utils;
 
 use pocketmine\entity\Entity;
 use pocketmine\player\Player;
@@ -24,6 +24,11 @@ trait TargetSelectorTrait {
 			$this->onTargetSelect($this->currentTarget);
 		}
 		return $this->currentTarget;
+	}
+
+	public function forceChangeTarget(Entity $target){
+		$this->currentTarget = $target;
+		$this->onTargetSelect($target);
 	}
 
 	public function searchTarget(): ?Entity{

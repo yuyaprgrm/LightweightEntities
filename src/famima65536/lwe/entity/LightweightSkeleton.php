@@ -30,7 +30,6 @@ use pocketmine\world\sound\BowShootSound;
 class LightweightSkeleton extends LightweightMonster {
 
 	private int $bowChargeTime = 0;
-	private bool $bowCharged = false;
 
 	protected float $attackDistance = 10;
 	private MobEquipmentPacket $itemInHandPacket;
