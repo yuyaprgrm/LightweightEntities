@@ -3,5 +3,5 @@
 namespace famima65536\lwe\utils;
 
 interface Policy {
-	public function satisfyBy($obj): bool;
+	public function satisfyBy($object): bool;
 }

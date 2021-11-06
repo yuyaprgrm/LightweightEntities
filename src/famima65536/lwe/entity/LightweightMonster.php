@@ -4,12 +4,12 @@ namespace famima65536\lwe\entity;
 
 use famima65536\lwe\entity\utils\AttackTrait;
 use famima65536\lwe\entity\utils\ChaseTargetTrait;
-use famima65536\lwe\entity\utils\SearchEntityPolicy;
+use famima65536\lwe\entity\utils\policy\SearchEntityPolicy;
 use famima65536\lwe\entity\utils\state\AttackingTargetState;
 use famima65536\lwe\entity\utils\state\RandomWalkingState;
 use famima65536\lwe\entity\utils\state\StateIds;
 use famima65536\lwe\entity\utils\state\WaitingState;
-use famima65536\lwe\entity\utils\TargetSelectorTrait;
+use famima65536\lwe\entity\utils\SearchTargetTrait;
 use pocketmine\entity\Entity;
 use pocketmine\entity\Location;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
@@ -17,13 +17,12 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\nbt\tag\CompoundTag;
 
 abstract class LightweightMonster extends LightweightLiving {
-	use ChaseTargetTrait, AttackTrait, TargetSelectorTrait;
+	use ChaseTargetTrait, AttackTrait, SearchTargetTrait;
 
 	protected float $attackDistance = 1;
 	private SearchEntityPolicy $searchPolicy;
 
 	public function __construct(Location $location, ?CompoundTag $nbt = null){
-		$this->searchPolicy = new SearchEntityPolicy();
 		parent::__construct($location, $nbt);
 	}
 
@@ -39,8 +38,6 @@ abstract class LightweightMonster extends LightweightLiving {
 				/** @var AttackingTargetState $state */
 				$state = $this->stateManager->getState();
 				$this->chaseAndAttack($state->getTarget());
-				break;
-			default:
 				break;
 		}
 
