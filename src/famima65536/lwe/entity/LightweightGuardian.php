@@ -5,22 +5,21 @@ namespace famima65536\lwe\entity;
 use pocketmine\entity\animation\ArmSwingAnimation;
 use pocketmine\entity\Entity;
 use pocketmine\entity\EntitySizeInfo;
-use pocketmine\entity\Zombie;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\item\VanillaItems;
 use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
 
-class LightweightZombie extends LightweightUndead {
+class LightweightGuardian extends LightweightMonster {
 
-	public static function getNetworkTypeId() : string{ return EntityIds::ZOMBIE; }
+	public static function getNetworkTypeId() : string{ return EntityIds::GUARDIAN; }
 
 	protected function getInitialSizeInfo() : EntitySizeInfo{
 		return new EntitySizeInfo(1.8, 0.6); //TODO: eye height ??
 	}
 
 	public function getName() : string{
-		return "Zombie";
+		return "Guardian";
 	}
 
 	public function getDrops() : array{
@@ -59,4 +58,5 @@ class LightweightZombie extends LightweightUndead {
 	public function onTargetSelect(?Entity $currentTarget): void{
 		$this->setTargetEntity($currentTarget);
 	}
+
 }

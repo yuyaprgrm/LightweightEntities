@@ -27,7 +27,7 @@ use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\player\Player;
 use pocketmine\world\sound\BowShootSound;
 
-class LightweightSkeleton extends LightweightMonster {
+class LightweightSkeleton extends LightweightUndead {
 
 	private int $bowChargeTime = 0;
 
