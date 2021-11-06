@@ -8,4 +8,5 @@ final class StateIds {
 
 	public const WAITING = 0;
 	public const RANDOM_WALKING = 1;
+	public const ATTACKING_TARGET = 2;
 }

@@ -15,7 +15,7 @@ abstract class BaseState implements IState {
 		return $this->time === 0;
 	}
 
-	public function decreaseTime(int $tick){
+	public function decreaseTime(int $tick): void{
 		if($this->time > 0){
 			$this->time -= $tick;
 			if($this->time < 0){
