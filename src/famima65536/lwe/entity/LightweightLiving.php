@@ -22,10 +22,6 @@ abstract class LightweightLiving extends Living {
 
 	use ChaseTargetTrait, SearchTargetTrait;
 
-	# code for search
-	private int $searchCooldown = 100;
-	protected int $searchTime = 0;
-
 	protected float $boundingRadius = 0.5;
 	protected $jumpVelocity = 0.5;
 

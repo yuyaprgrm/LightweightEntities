@@ -20,11 +20,6 @@ abstract class LightweightMonster extends LightweightLiving {
 	use ChaseTargetTrait, AttackTrait, SearchTargetTrait;
 
 	protected float $attackDistance = 1;
-	private SearchEntityPolicy $searchPolicy;
-
-	public function __construct(Location $location, ?CompoundTag $nbt = null){
-		parent::__construct($location, $nbt);
-	}
 
 	public function onUpdate(int $currentTick): bool{
 
@@ -52,7 +47,7 @@ abstract class LightweightMonster extends LightweightLiving {
 	}
 
 	protected function onStateFinished(): void{
-		$target = $this->target();
+		$target = $this->findTarget();
 		if($target !== null){
 			$this->stateManager->setState(new AttackingTargetState($target));
 			return;

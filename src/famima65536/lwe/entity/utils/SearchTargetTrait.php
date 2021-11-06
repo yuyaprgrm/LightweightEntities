@@ -3,6 +3,7 @@
 namespace famima65536\lwe\entity\utils;
 
 use famima65536\lwe\entity\utils\policy\SearchEntityPolicy;
+use famima65536\lwe\utils\Policy;
 use pocketmine\entity\Entity;
 use pocketmine\world\format\Chunk;
 use pocketmine\world\World;
@@ -11,21 +12,21 @@ trait SearchTargetTrait {
 
 	protected int $searchTargetTick = 0;
 	protected int $targetSearchDistance = 30;
-	private SearchEntityPolicy $searchPolicy;
 
+	protected ?Policy $searchPolicy = null;
 
-	public function target(): ?Entity{
+	public function findTarget(): ?Entity{
 		if($this->searchTargetTick > 0){
 			return null;
 		}
-		$target =  $this->getNearestEntityMatchPolicy($this->targetSearchDistance, $this->searchPolicy);
+		$target =  $this->getNearestEntityMatchPolicy($this->targetSearchDistance, $this->searchPolicy ?? SearchEntityPolicy::getInstance());
 		if($target !== null){
 			$this->onTargetSelect($target);
 		}
 		return $target;
 	}
 
-	public function getNearestEntityMatchPolicy(float $maxDistance, SearchEntityPolicy $policy) : ?Entity{
+	public function getNearestEntityMatchPolicy(float $maxDistance, Policy $policy) : ?Entity{
 		$pos = $this->getPosition();
 		$minX = ((int) floor($pos->x - $maxDistance)) >> Chunk::COORD_BIT_SIZE;
 		$maxX = ((int) floor($pos->x + $maxDistance)) >> Chunk::COORD_BIT_SIZE;
@@ -45,7 +46,7 @@ trait SearchTargetTrait {
 					continue;
 				}
 				foreach($world->getChunkEntities($x, $z) as $entity){
-					if(!$policy->satisfyBy($entity)){
+					if($this === $entity or !$policy->satisfyBy($entity)){
 						continue;
 					}
 					$distSq = $entity->getPosition()->distanceSquared($pos);

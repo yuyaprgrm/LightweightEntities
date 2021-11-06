@@ -34,7 +34,7 @@ class Loader extends PluginBase {
 		$factory->register(LightweightCow::class, function(World $world, CompoundTag $nbt) : LightweightCow{
 			return new LightweightCow(EntityDataHelper::parseLocation($nbt, $world), $nbt);
 		}, ['Custom Cow', 'minecraft:cow'], EntityLegacyIds::COW);
-		$factory->register(LightweightSkeleton::class, function(World $world, CompoundTag $nbt) : LightweightGuardian{
+		$factory->register(LightweightGuardian::class, function(World $world, CompoundTag $nbt) : LightweightGuardian{
 			return new LightweightGuardian(EntityDataHelper::parseLocation($nbt, $world), $nbt);
 		}, ['Custom Guardian', 'minecraft:guardian'], EntityLegacyIds::GUARDIAN);
 

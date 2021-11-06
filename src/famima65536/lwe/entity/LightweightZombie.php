@@ -2,16 +2,25 @@
 
 namespace famima65536\lwe\entity;
 
+use famima65536\lwe\entity\utils\policy\SearchEntityPolicy;
+use famima65536\lwe\entity\utils\policy\ZombieSearchEntityPolicy;
 use pocketmine\entity\animation\ArmSwingAnimation;
 use pocketmine\entity\Entity;
 use pocketmine\entity\EntitySizeInfo;
+use pocketmine\entity\Location;
 use pocketmine\entity\Zombie;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\item\VanillaItems;
+use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
 
 class LightweightZombie extends LightweightUndead {
+
+	public function __construct(Location $location, ?CompoundTag $nbt = null){
+		parent::__construct($location, $nbt);
+		$this->searchPolicy = ZombieSearchEntityPolicy::getInstance();
+	}
 
 	public static function getNetworkTypeId() : string{ return EntityIds::ZOMBIE; }
 
@@ -56,7 +65,7 @@ class LightweightZombie extends LightweightUndead {
 		$this->broadcastAnimation(new ArmSwingAnimation($this));
 	}
 
-	public function onTargetSelect(?Entity $currentTarget): void{
-		$this->setTargetEntity($currentTarget);
+	public function onTargetSelect(?Entity $target): void{
+		$this->setTargetEntity($target);
 	}
 }
