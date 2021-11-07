@@ -12,13 +12,13 @@ use pocketmine\utils\SingletonTrait;
 class ZombieSearchEntityPolicy implements Policy {
 	use SingletonTrait;
 
-	public function satisfyBy($entity): bool{
-		if(!$entity instanceof Entity)
+	public function satisfiedBy($object): bool{
+		if(!$object instanceof Entity)
 			return false;
-		return ($entity->isAlive() and $entity instanceof Living) and
+		return ($object->isAlive() and $object instanceof Living) and
 			(
-				($entity instanceof Player and $entity->isSurvival()) or
-				$entity instanceof Villager
+				($object instanceof Player and $object->isSurvival()) or
+				$object instanceof Villager
 			);
 	}
 }

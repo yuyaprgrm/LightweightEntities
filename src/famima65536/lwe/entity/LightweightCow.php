@@ -55,7 +55,7 @@ class LightweightCow extends LightweightMonster {
 		$this->broadcastAnimation(new ArmSwingAnimation($this));
 	}
 
-	public function onTargetSelect(?Entity $currentTarget): void{
-		$this->setTargetEntity($currentTarget);
+	public function onTargetSelect(?Entity $target): void{
+		$this->setTargetEntity($target);
 	}
 }

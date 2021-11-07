@@ -5,7 +5,7 @@ namespace famima65536\lwe\entity\utils\state;
 abstract class BaseState implements IState {
 
 	const DEFAULT_TIME = 20;
-	private int $time = 0;
+	private int $time;
 
 	public function __construct(?int $time=null){
 		$this->time = $time ?? static::DEFAULT_TIME;

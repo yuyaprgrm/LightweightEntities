@@ -4,8 +4,6 @@ namespace famima65536\lwe\entity\utils;
 
 use pocketmine\block\Transparent;
 use pocketmine\entity\Entity;
-use pocketmine\entity\Location;
-use pocketmine\math\Vector3;
 use pocketmine\world\World;
 
 trait ChaseTargetTrait {

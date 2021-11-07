@@ -11,9 +11,9 @@ class SearchEntityPolicy implements Policy{
 
 	use SingletonTrait;
 
-	public function satisfyBy($entity): bool{
-		if(!$entity instanceof Entity)
+	public function satisfiedBy($object): bool{
+		if(!$object instanceof Entity)
 			return false;
-		return ($entity->isAlive() and $entity instanceof Living);
+		return ($object->isAlive() and $object instanceof Living);
 	}
 }

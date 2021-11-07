@@ -2,13 +2,11 @@
 
 namespace famima65536\lwe\entity;
 
-use famima65536\lwe\entity\utils\policy\SearchEntityPolicy;
 use famima65536\lwe\entity\utils\policy\ZombieSearchEntityPolicy;
 use pocketmine\entity\animation\ArmSwingAnimation;
 use pocketmine\entity\Entity;
 use pocketmine\entity\EntitySizeInfo;
 use pocketmine\entity\Location;
-use pocketmine\entity\Zombie;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\item\VanillaItems;
@@ -16,6 +14,8 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
 
 class LightweightZombie extends LightweightUndead {
+
+	protected ?string $ambientSound = "mob.zombie.say";
 
 	public function __construct(Location $location, ?CompoundTag $nbt = null){
 		parent::__construct($location, $nbt);

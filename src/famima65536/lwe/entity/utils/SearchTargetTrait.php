@@ -10,15 +10,16 @@ use pocketmine\world\World;
 
 trait SearchTargetTrait {
 
-	protected int $searchTargetTick = 0;
-	protected int $targetSearchDistance = 30;
+	protected int $searchTargetTime = 0;
+	protected int $targetSearchDistance = 15;
 
 	protected ?Policy $searchPolicy = null;
 
 	public function findTarget(): ?Entity{
-		if($this->searchTargetTick > 0){
+		if($this->searchTargetTime > 0){
 			return null;
 		}
+		$this->searchTargetTime = 200;
 		$target =  $this->getNearestEntityMatchPolicy($this->targetSearchDistance, $this->searchPolicy ?? SearchEntityPolicy::getInstance());
 		if($target !== null){
 			$this->onTargetSelect($target);
@@ -46,7 +47,7 @@ trait SearchTargetTrait {
 					continue;
 				}
 				foreach($world->getChunkEntities($x, $z) as $entity){
-					if($this === $entity or !$policy->satisfyBy($entity)){
+					if($this === $entity or !$policy->satisfiedBy($entity)){
 						continue;
 					}
 					$distSq = $entity->getPosition()->distanceSquared($pos);

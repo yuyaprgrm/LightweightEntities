@@ -2,8 +2,6 @@
 
 namespace famima65536\lwe\entity;
 
-use pocketmine\entity\Entity;
-use pocketmine\entity\EntitySizeInfo;
 use pocketmine\world\World;
 
 abstract class LightweightUndead extends LightweightMonster {

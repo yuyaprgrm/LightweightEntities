@@ -4,17 +4,14 @@ namespace famima65536\lwe\entity;
 
 use famima65536\lwe\entity\utils\AttackTrait;
 use famima65536\lwe\entity\utils\ChaseTargetTrait;
-use famima65536\lwe\entity\utils\policy\SearchEntityPolicy;
 use famima65536\lwe\entity\utils\state\AttackingTargetState;
 use famima65536\lwe\entity\utils\state\RandomWalkingState;
 use famima65536\lwe\entity\utils\state\StateIds;
 use famima65536\lwe\entity\utils\state\WaitingState;
 use famima65536\lwe\entity\utils\SearchTargetTrait;
 use pocketmine\entity\Entity;
-use pocketmine\entity\Location;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\nbt\tag\CompoundTag;
 
 abstract class LightweightMonster extends LightweightLiving {
 	use ChaseTargetTrait, AttackTrait, SearchTargetTrait;
@@ -52,6 +49,7 @@ abstract class LightweightMonster extends LightweightLiving {
 			$this->stateManager->setState(new AttackingTargetState($target));
 			return;
 		}
+
 		$random = mt_rand(0,10);
 		$this->stateManager->setState(match (true){
 			$random <= 8 => new WaitingState,

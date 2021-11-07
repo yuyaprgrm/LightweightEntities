@@ -2,9 +2,6 @@
 
 namespace famima65536\lwe\entity;
 
-use pocketmine\entity\animation\Animation;
-use pocketmine\entity\animation\ArmSwingAnimation;
-use pocketmine\entity\animation\ArrowShakeAnimation;
 use pocketmine\entity\Entity;
 use pocketmine\entity\EntitySizeInfo;
 use pocketmine\entity\Location;
@@ -12,16 +9,12 @@ use pocketmine\entity\projectile\Arrow as ArrowEntity;
 use pocketmine\entity\projectile\Projectile;
 use pocketmine\event\entity\EntityShootBowEvent;
 use pocketmine\event\entity\ProjectileLaunchEvent;
-use pocketmine\item\enchantment\VanillaEnchantments;
-use pocketmine\item\Item;
-use pocketmine\item\ItemUseResult;
 use pocketmine\item\VanillaItems;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\network\mcpe\convert\TypeConverter;
 use pocketmine\network\mcpe\protocol\MobEquipmentPacket;
 use pocketmine\network\mcpe\protocol\types\entity\EntityIds;
 use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
-use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
 use pocketmine\network\mcpe\protocol\types\inventory\ContainerIds;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\player\Player;
@@ -30,6 +23,8 @@ use pocketmine\world\sound\BowShootSound;
 class LightweightSkeleton extends LightweightUndead {
 
 	private int $bowChargeTime = 0;
+
+	protected ?string $ambientSound = "mob.skeleton.say";
 
 	protected float $attackDistance = 10;
 	private MobEquipmentPacket $itemInHandPacket;
