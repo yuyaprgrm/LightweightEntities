@@ -1,6 +1,8 @@
 <?php
 
-namespace famima65536\lwe\entity\behavior\spawnRules\condition;
+namespace famima65536\lwe\entity\behavior\spawnRules;
+
+use famima65536\lwe\entity\behavior\spawnRules\component\IConditionComponent;
 
 class Condition {
 
