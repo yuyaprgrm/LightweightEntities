@@ -30,6 +30,8 @@
       <path value="$PROJECT_DIR$/vendor/pocketmine/classloader" />
       <path value="$PROJECT_DIR$/vendor/pocketmine/bedrock-protocol" />
       <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/pocketmine/locale-data" />
+      <path value="$PROJECT_DIR$/vendor/pocketmine/bedrock-data" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

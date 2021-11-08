@@ -13,7 +13,7 @@ trait AttackTrait {
 	abstract public function actionAttack(Entity $target): void;
 
 	public function tryActionAttack(Entity $entity): bool{
-		if($this->actionAttackTime > 0 or $entity->getPosition()->distanceSquared($this->location) > $this->attackDistance**2){
+		if($this->actionAttackTime > 0 or !$this->isTargetInAttackDistance($entity)){
 			return false;
 		}
 		$this->actionAttack($entity);
@@ -33,7 +33,8 @@ trait AttackTrait {
 		}
 	}
 
-	public function isTargetInAttackDistance(?Entity $target){
+	public function isTargetInAttackDistance(Entity $target): bool{
+		return $target->getPosition()->distanceSquared($this->location) < $this->attackDistance**2;
 	}
 
 }

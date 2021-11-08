@@ -60,7 +60,7 @@ class LightweightSkeleton extends LightweightUndead {
 		$this->bowCharged = false;
 		$this->getNetworkProperties()->setGenericFlag(EntityMetadataFlags::TEMPTED, false);
 
-		$baseForce = 0.7;
+		$baseForce = 1;
 		$entity = new ArrowEntity(Location::fromObject(
 			$this->getEyePos(),
 			$this->getWorld(),

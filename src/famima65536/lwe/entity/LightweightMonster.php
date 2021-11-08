@@ -63,6 +63,7 @@ abstract class LightweightMonster extends LightweightLiving {
 	protected function chaseAndAttack(Entity $target){
 		$this->lookAt($target->getLocation()->add(0, 0.7, 0));
 		$this->tryActionAttack($target);
-		$this->moveToward($target);
+		if(!$this->isTargetInAttackDistance($target) and $this->attackTime === 0)
+			$this->moveToward($target);
 	}
 }
